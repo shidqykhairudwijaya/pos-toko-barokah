@@ -48,3 +48,7 @@ Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
 Route::get('/about', function(){
     return "Toko yang menyediakan banyak makanan";
 });
+
+Route::get('/access-denied', function () {
+    return view('errors.access-denied');
+})->name('access.denied');
