@@ -14,3 +14,7 @@
     </div>
 </x-app-layout>
 
+<x-badge status="Aman" />
+<x-badge status="Menipis" />
+<x-badge status="Habis" />
+
