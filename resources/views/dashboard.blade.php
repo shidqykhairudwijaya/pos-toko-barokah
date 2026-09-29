@@ -10,11 +10,16 @@
                 <h3 class="text-lg font-semibold mb-2">Ringkasan Hari Ini</h3>
                 <p class="text-gray-600">Selamat datang, {{ auth()->user()->name }}.</p>
             </x-card>
+            <x-card>
+                <h3 class="text-lg font-semibold mb-2">Status toko
+                </h3>
+                <x-badge status="Aman" />
+                <x-badge status="Menipis" />
+                <x-badge status="Habis" />
+            </x-card>
         </div>
     </div>
 </x-app-layout>
 
-<x-badge status="Aman" />
-<x-badge status="Menipis" />
-<x-badge status="Habis" />
+
 
