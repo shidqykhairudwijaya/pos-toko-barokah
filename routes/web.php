@@ -57,3 +57,6 @@ Route::get('/access-denied', function () {
     return view('errors.access-denied');
 })->name('access.denied');
 
+
+Route::resource('categories', CategoryController::class);
+
