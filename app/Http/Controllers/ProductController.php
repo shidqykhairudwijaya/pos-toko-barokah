@@ -50,24 +50,37 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+   public function edit(Product $product)
     {
-        //
+        $categories = Category::orderBy('name')->get();
+        return view('master-data.product.edit', compact('product', 'categories'));
     }
+
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $product->update($request->validated());
+    
+        return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+    
+        return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
     }
+
+
 }

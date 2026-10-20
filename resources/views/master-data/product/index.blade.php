@@ -1,4 +1,8 @@
 <x-app-layout>
+    
+ 
+
+
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800">Data Produk</h2>
@@ -45,6 +49,12 @@
                                         <span class="text-yellow-600 text-xs block">Menipis</span>
                                     @endif
                                 </td>
+                                   <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus produk {{ $product->name }}?')" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600">Hapus</button>
+                                    </form>
                                 <td class="px-4 py-2 text-sm text-center space-x-2">
                                     <a href="{{ route('products.edit', $product) }}" class="text-indigo-600">Ubah</a>
                                 </td>
