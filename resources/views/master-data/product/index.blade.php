@@ -1,8 +1,6 @@
 <x-app-layout>
     
  
-
-
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800">Data Produk</h2>
@@ -13,6 +11,7 @@
     </x-slot>
  
     <div class="py-12">
+        
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-card>
                 @if (session('success'))
@@ -35,6 +34,31 @@
                     <tbody class="divide-y divide-gray-100">
                         @forelse ($products as $product)
                             <tr class="@if ($product->stock == 0) bg-red-50 @elseif ($product->stock < 10) bg-yellow-50 @endif">
+                                <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus produk {{ $product->name }}?')" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600">Hapus</button>
+                                    </form>
+                                    <br>
+                                    <form method="GET" action="{{ route('products.index') }}" class="flex gap-3 mb-4">
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            placeholder="Cari nama atau kode produk..."
+                            class="flex-1 rounded-md border-gray-300 shadow-sm">
+                    
+                        <select name="category_id" class="rounded-md border-gray-300">
+                            <option value="">Semua Kategori</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" @selected(request('category_id') == $category->id)>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    
+                        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md">Cari</button>
+                        <a href="{{ route('products.index') }}" class="px-4 py-2 text-gray-500">Reset</a>
+                    </form>
+
                                 <td class="px-4 py-2 text-sm">{{ $product->code }}</td>
                                 <td class="px-4 py-2 text-sm">{{ $product->name }}</td>
                                 <td class="px-4 py-2 text-sm">{{ $product->category->name }}</td>
@@ -49,12 +73,7 @@
                                         <span class="text-yellow-600 text-xs block">Menipis</span>
                                     @endif
                                 </td>
-                                   <form action="{{ route('products.destroy', $product) }}" method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus produk {{ $product->name }}?')" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600">Hapus</button>
-                                    </form>
+                                   
                                 <td class="px-4 py-2 text-sm text-center space-x-2">
                                     <a href="{{ route('products.edit', $product) }}" class="text-indigo-600">Ubah</a>
                                 </td>
